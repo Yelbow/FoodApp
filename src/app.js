@@ -5,6 +5,7 @@ const fs = require('fs')
 const routes = require('./routes')
 const nutrients = require('./utils/nutrients')
 
+const port = process.env.PORT || 3000
 
 // const server = http.createServer('',).listen(3000)
 
@@ -35,4 +36,4 @@ http.createServer( (req, res) => {
     //     res.end('go to /json?food=')
     // }
 
-}).listen(3000) 
+}).listen(port) 

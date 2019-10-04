@@ -26,7 +26,7 @@
             }
 
             console.log(lis)
-            fetch('http://localhost:3000/json?food=' + foodItem).then( (res) => {
+            fetch('/json?food=' + foodItem).then( (res) => {
             res.json().then( (data) => {
                 
                 foodLabel.innerHTML = data.label+ ' per 100g'
