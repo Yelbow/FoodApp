@@ -1,0 +1,51 @@
+<body>
+    <h1>In index.html</h1>
+
+    <form id="form" action="">
+        <label for=""> what would you like to know the nutrients of?</label>
+        <input id="input" type="text" placeholder="ex. apple, chocolate or peanuts ">
+        <button> search </button>
+    </form>
+
+    <p id="foodItem"></p>
+    <ul id="nutrients"></ul>
+
+    <script>
+        var form = document.querySelector('#form')
+        var input = document.querySelector('#input')
+        var ul = document.querySelector('#nutrients')
+        var foodLabel = document.querySelector('#foodItem')
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault()
+
+            var foodItem = input.value;
+            var lis = ul.querySelectorAll('li')
+            for (li of lis){
+                li.remove()
+            }
+
+            console.log(lis)
+            fetch('http://localhost:3000/json?food=' + foodItem).then( (res) => {
+            res.json().then( (data) => {
+                
+                foodLabel.innerHTML = data.label+ ' per 100g'
+
+                for ( key in data.nutrients) {
+                    var unit = ' g'
+                    if (key === 'ENERC_KCAL') { unit =' kcal' }
+                    var li = document.createElement('li')
+                    li.innerHTML = key + ': ' + data.nutrients[key] + unit;
+                    ul.appendChild(li)
+                }
+
+                }).catch( (err) => {
+                    console.log('its possibly not json'+ err)
+                })
+            
+            }); // fetch
+        }) //form.addEventListener
+
+       
+    </script>
+</body>
